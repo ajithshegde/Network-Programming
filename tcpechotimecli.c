@@ -43,7 +43,7 @@ main(int argc, char **argv)
 		printf("'e' for echo \n");      
 		printf("'q' to quit \n"); 
 
-		scanf("%d",&choice);
+		scanf("%c",&choice);
 		if(choice == 'e' || choice =='t' || choice == 'q'){
 			switch(choice){
 				case 't': printf("You have chosen time \n");
