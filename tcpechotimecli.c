@@ -1,5 +1,6 @@
 #include	"unp.h"
 
+void child_proc(char);
 	int
 main(int argc, char **argv)
 {
@@ -46,9 +47,9 @@ main(int argc, char **argv)
 		scanf("%c",&choice);
 		if(choice == 'e' || choice =='t' || choice == 'q'){
 			switch(choice){
-				case 't': printf("You have chosen time \n");
-					  break;
-				case 'e': printf("You have chosen echo \n");
+				case 't': 
+					  
+				case 'e': child_proc(choice);
 					  break;
 				case 'q': printf("You chose to quit \n");
 					  break;
@@ -66,4 +67,14 @@ main(int argc, char **argv)
 		}
 	}
 	exit(0);
+}
+
+void child_proc(char ch){
+	if(ch == 't'){
+	printf("child chose time \n");
+	return ;
+}
+	else if(ch == 'e'){
+	printf("user chose to echo\n");
+}
 }
