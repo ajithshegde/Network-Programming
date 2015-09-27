@@ -52,6 +52,7 @@ main(int argc, char **argv)
 					  break;
 				case 'q': printf("You chose to quit \n");
 					  break;
+				default: break;
 			}	
 		}
 		if(choice == 'q'){
