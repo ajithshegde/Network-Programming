@@ -54,9 +54,9 @@ main(int argc, char **argv)
 					  break;
 			}	
 		}
-//		if(choice == 'q'){
+		if(choice == 'q'){
 		break;
-//}
+}
 	}
 	exit(0);
 }
