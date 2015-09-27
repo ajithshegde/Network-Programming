@@ -1,5 +1,5 @@
 #include	"unp.h"
-
+#include <sys/types.h>
 void child_proc(char);
 	int
 main(int argc, char **argv)
@@ -8,7 +8,8 @@ main(int argc, char **argv)
 	struct in_addr addr_4;
 	char choice;
 	char str[INET_ADDRSTRLEN];
-
+	int pid;
+	int pfd[2];
 
 	if (argc != 2)
 		err_quit("usage: a.out <host_name>");
@@ -48,15 +49,30 @@ main(int argc, char **argv)
 		if(choice == 'e' || choice =='t' || choice == 'q'){
 			switch(choice){
 				case 't': 
-					  
-				case 'e': child_proc(choice);
-					  break;
+				case 'e': if(pipe(pfd) == -1)
+					  { perror("Pipe failed");
+					    exit(1);
+						}
+					  pid = fork();
+					  if(pid < 0){
+					  perror("Failed to fork");
+					  exit(2);
+					}
+					  if(pid == 0){
+					  close(pfd[0]);		
+					  child_proc(choice);
+					 } 
+					 else{
+						close(pfd[1]);
+						parent_proc(); }	
+					 break;
 				case 'q': printf("You chose to quit \n");
 					  break;
 				
 			}	
 		}
 		else{
+		    printf("Invalid choice\n");
 		    continue;
 		}
 		if(choice == 'q'){
@@ -77,4 +93,9 @@ void child_proc(char ch){
 	else if(ch == 'e'){
 	printf("user chose to echo\n");
 }
+}
+
+void parent_proc(){
+
+
 }
