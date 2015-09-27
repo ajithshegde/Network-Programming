@@ -18,8 +18,8 @@ main(int argc, char **argv)
 			return 2;
 		}
 		else{
-			// addr1 = inet_ntop(ha->h_addrtype,ha->h_addr_list[0],str,sizeof(str));
-			printf("Address is %s \n",inet_ntop(ha->h_addrtype,ha->h_addr_list[0],str,sizeof(str)) );
+		
+		printf("Address is %s \n",inet_ntop(ha->h_addrtype,ha->h_addr_list[0],str,sizeof(str)) );
 
 
 		}
