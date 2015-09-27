@@ -52,14 +52,18 @@ main(int argc, char **argv)
 					  break;
 				case 'q': printf("You chose to quit \n");
 					  break;
-				default: break;
+				
 			}	
+		}
+		else{
+		    continue;
 		}
 		if(choice == 'q'){
 			break;
 		}
-		else
+		else{
 		    continue;
+		}
 	}
 	exit(0);
 }
