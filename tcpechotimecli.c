@@ -55,8 +55,10 @@ main(int argc, char **argv)
 			}	
 		}
 		if(choice == 'q'){
-		break;
-}
+			break;
+		}
+		else
+		    continue;
 	}
 	exit(0);
 }
