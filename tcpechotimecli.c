@@ -1,6 +1,7 @@
 #include	"unp.h"
 #include <sys/types.h>
-void child_proc(char);
+//void child_proc(char);
+//void parent_proc();
 	int
 main(int argc, char **argv)
 {	
@@ -14,7 +15,7 @@ main(int argc, char **argv)
 
 	if (argc != 2)
 		err_quit("usage: a.out <host_name>");
-	if(inet_pton(AF_INET, argv[1], &addr_4)<= 0){
+	if(inet_pton(AF_INET, argv[1], &caddr.sin_addr)<= 0){
 		
 		if ((ha = gethostbyname(argv[1])) == NULL) {  
 			err_quit("Invalid host name or IP address");
@@ -55,25 +56,27 @@ main(int argc, char **argv)
 					  { perror("Pipe failed");
 					    exit(1);
 						}
-					  pid = fork();
-					  if(pid < 0){
+					  
+					  if((pid=fork()) < 0){
 					  perror("Failed to fork");
 					  exit(2);
 					}
 					  if(pid == 0){
 					  close(pfd[0]);
 					  if(choice == 'e'){
-					   execlp("xterm", "xterm", "-e", "./echocli", "127.0.0.1", (char *) 0);	
-					  }
+					  // execlp("xterm", "xterm", "-e", "./echocli", "127.0.0.1", (char *) 0);	
+					 printf("In child..child process forked and echoed\n");  
+					}
 					  else{
-					  execlp("xterm", "xterm", "-e", "./timecli", "127.0.0.1", (char *) 0);
-
+					 // execlp("xterm", "xterm", "-e", "./timecli", "127.0.0.1", (char *) 0);
+					   printf("In child..child process forked and timed \n");	
 					}				
 					 // child_proc(choice);
 					 } 
 					 else{
 						close(pfd[1]);
-						parent_proc(); }	
+						printf("In parent..child forked\n");
+						//parent_proc(); }	
 					 break;
 				case 'q': printf("You chose to quit \n");
 					  break;
@@ -94,7 +97,7 @@ main(int argc, char **argv)
 	exit(0);
 }
 
-void child_proc(char ch){
+/*void child_proc(char ch){
 	if(ch == 't'){
 	printf("child chose time \n");
 	return ;
@@ -102,9 +105,9 @@ void child_proc(char ch){
 	else if(ch == 'e'){
 	printf("user chose to echo\n");
 }
-}
+}*/
 
-void parent_proc(){
+/*void parent_proc(){
 
 
-}
+}*/
