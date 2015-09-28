@@ -15,7 +15,8 @@ main(int argc, char **argv)
 	sleep(5);
 	if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		err_sys("socket error");
-
+	printf("Sockfd = %d\n",sockfd);
+	sleep(5);
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port   = htons(14086);	
