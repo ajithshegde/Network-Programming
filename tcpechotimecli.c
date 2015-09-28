@@ -68,7 +68,7 @@ main(int argc, char **argv)
 					 printf("In child..child process forked and echoed\n");  
 					}
 					  else{
-					 // execlp("xterm", "xterm", "-e", "./timecli", "127.0.0.1", (char *) 0);
+					   execlp("xterm", "xterm", "-e", "./time_cli", "127.0.0.1", (char *) 0);
 					   printf("In child..child process forked and timed \n");	
 					}				
 					 // child_proc(choice);
