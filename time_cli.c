@@ -4,9 +4,9 @@ int
 main(int argc, char **argv)
 {	
 //	for( ; ; ){
-	printf("%s \n",argv[1]);
-	sleep(5); 
-/*	int					sockfd, n;
+//	printf("%s \n",argv[1]);
+//	sleep(5); 
+	int					sockfd, n;
 	char				recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
 
@@ -24,15 +24,15 @@ main(int argc, char **argv)
 
 	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
 		err_sys("connect error");
-
+	for( ; ; ){
 	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
 		recvline[n] = 0;	
 		if (fputs(recvline, stdout) == EOF)
 			err_sys("fputs error");
-	}
+	}}
 	if (n < 0)
 		err_sys("read error");
-*/
-//	exit(0);
+
+	exit(0);
 
 }
