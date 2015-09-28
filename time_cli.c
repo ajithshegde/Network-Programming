@@ -3,10 +3,10 @@
 int
 main(int argc, char **argv)
 {	
-	for( ; ; ){
-	printf("%s \n",argv[1]);
-	sleep(5); }
-/*	int					sockfd, n;
+//	for( ; ; ){
+//	printf("%s \n",argv[1]);
+//	sleep(5); }
+	int					sockfd, n;
 	char				recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
 
@@ -33,6 +33,6 @@ main(int argc, char **argv)
 	if (n < 0)
 		err_sys("read error");
 
-	exit(0);
-*/
+//	exit(0);
+
 }
