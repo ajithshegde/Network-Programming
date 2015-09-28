@@ -83,9 +83,10 @@ main(int argc, char **argv)
 				
 			}	
 		}
+		}
 		else{
 		    printf("Invalid choice\n");
-		    continue;
+		    //continue;
 		}
 //		if(choice == 'q'){
 //			break;
