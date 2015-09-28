@@ -12,7 +12,7 @@ main(int argc, char **argv)
 
 	if (argc != 2)
 		err_quit("usage: a.out <IPaddress>");
-
+	sleep(5);
 	if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		err_sys("socket error");
 
