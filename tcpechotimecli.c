@@ -3,9 +3,10 @@
 void child_proc(char);
 	int
 main(int argc, char **argv)
-{
+{	
+	struct sockaddr_in caddr;
 	struct hostent *ha;
-	struct in_addr addr_4;
+//	struct in_addr addr_4;
 	char choice;
 	char str[INET_ADDRSTRLEN];
 	int pid;
@@ -28,7 +29,8 @@ main(int argc, char **argv)
 
 	}
 	else{
-		if((ha = gethostbyaddr(&addr_4,sizeof(addr_4),AF_INET)) == NULL){
+//		if((ha = gethostbyaddr(&addr_4,sizeof(addr_4),AF_INET)) == NULL){
+		if((ha = gethostbyaddr(&caddr.sin_addr,sizeof(caddr.sin_addr),AF_INET)) == NULL){
 			herror("Enter valid IP address");
 			return 2;
 		}
@@ -39,7 +41,7 @@ main(int argc, char **argv)
 
 	}
 
-	for( ; ; ){
+//	for( ; ; ){
 		printf("Enter your choice \n");         
 		printf("'t' for time \n");      
 		printf("'e' for echo \n");      
@@ -59,8 +61,15 @@ main(int argc, char **argv)
 					  exit(2);
 					}
 					  if(pid == 0){
-					  close(pfd[0]);		
-					  child_proc(choice);
+					  close(pfd[0]);
+					  if(choice == 'e'){
+					   execlp("xterm", "xterm", "-e", "./echocli", "127.0.0.1", (char *) 0);	
+					  }
+					  else{
+					  execlp("xterm", "xterm", "-e", "./timecli", "127.0.0.1", (char *) 0);
+
+					}				
+					 // child_proc(choice);
 					 } 
 					 else{
 						close(pfd[1]);
@@ -75,13 +84,13 @@ main(int argc, char **argv)
 		    printf("Invalid choice\n");
 		    continue;
 		}
-		if(choice == 'q'){
-			break;
-		}
-		else{
-		    continue;
-		}
-	}
+//		if(choice == 'q'){
+//			break;
+//		}
+//		else{
+//		    continue;
+//		}
+//	}
 	exit(0);
 }
 
