@@ -13,6 +13,7 @@ main(int argc, char **argv)
 	int pid,nread;
 	int pfd[2];
 	char buf[100];
+	char pf[100];
 
 	if (argc != 2)
 		err_quit("usage: a.out <host_name>");
@@ -64,15 +65,15 @@ main(int argc, char **argv)
 				  }
 				  if(pid == 0){
 					  close(pfd[0]);
-					  dup2(pfd[1],1);
-					  close(pfd[1]);
-					  if(choice == 'e'){
+					  snprintf(pf,sizeof(pf),pfd[1]);
+					  					  
+				          if(choice == 'e'){
 						 // execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
 						 // perror("echo failed");	
 						  printf("In child..child process forked and echoed\n");  
 					  }
 					  else{
-						  execlp("xterm", "xterm", "-e", "./time_cli", "127.0.0.1", (char *) 0);
+						  execlp("xterm", "xterm", "-e", "./time_cli", "127.0.0.1",pf, (char *) 0);
 						  perror("time failed");
 						  printf("In child..child process forked and timed \n");	
 					  }				
@@ -80,8 +81,8 @@ main(int argc, char **argv)
 				  } 
 				  else{
 					  close(pfd[1]);
-					  dup2(pfd[0],0);
-					  close(pfd[0]);
+					  
+					  
 					  printf("In parent..child forked\n");
 					 // for( ; ;){
 					 // while ((nread =read(pfd[0], buf, 100))!= 0)
