@@ -64,7 +64,7 @@ main(int argc, char **argv)
 					  if(pid == 0){
 					  close(pfd[0]);
 					  if(choice == 'e'){
-					  // execlp("xterm", "xterm", "-e", "./echocli", "127.0.0.1", (char *) 0);	
+					  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);	
 					 printf("In child..child process forked and echoed\n");  
 					}
 					  else{
