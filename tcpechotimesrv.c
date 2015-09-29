@@ -42,11 +42,11 @@ int
 main(int argc, char **argv)
 {
 pthread_t thread_t;
-pthread_attr time_attr;
+pthread_attr_t time_attr;
 int tc;
 
 tc = pthread_attr_init(&time_attr);
-tc = pthread_create(&thread_t, &time_attr,time_exec, NULL);
+tc = pthread_create(&thread_t, &time_attr,time_exe, NULL);
 //time_exe();
 
 

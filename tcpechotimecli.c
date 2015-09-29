@@ -65,7 +65,7 @@ main(int argc, char **argv)
 				  }
 				  if(pid == 0){
 					  close(pfd[0]);
-					  snprintf(pf,sizeof(pf),pfd[1]);
+					  sprintf(pf,"%d",pfd[1]);
 					  					  
 				          if(choice == 'e'){
 						 // execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
