@@ -2,7 +2,7 @@
 #include	"unp.h"
 #include	<time.h>
 
-void time_exe(){
+void* time_exe(){
 
 	 int                        listenfd, connfd;
         struct sockaddr_in      servaddr;
@@ -10,6 +10,8 @@ void time_exe(){
         time_t                          ticks;
         int i;
         
+	Pthread_detach(pthread_self());	
+
         listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 
 
@@ -32,15 +34,20 @@ void time_exe(){
         }
                 Close(connfd);
         }
-
+	return (NULL);
 
 }
 
 int
 main(int argc, char **argv)
 {
+pthread_t thread_t;
+pthread_attr time_attr;
+int tc;
 
-time_exe();
+tc = pthread_attr_init(&time_attr);
+tc = pthread_create(&thread_t, &time_attr,time_exec, NULL);
+//time_exe();
 
 
 }

@@ -10,7 +10,7 @@ main(int argc, char **argv)
 	char				recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
 
-	if (argc != 2)
+	if (argc < 3)
 		err_quit("usage: a.out <IPaddress>");
 	//sleep(5);
 	if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
