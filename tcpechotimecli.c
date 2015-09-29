@@ -63,18 +63,24 @@ main(int argc, char **argv)
 					}
 					  if(pid == 0){
 					  close(pfd[0]);
+					  dup2(pfd[1],1);
+					  close(pfd[1]);
 					  if(choice == 'e'){
-					  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);	
+					  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
+					  perror("echo failed");	
 					 printf("In child..child process forked and echoed\n");  
 					}
 					  else{
 					   execlp("xterm", "xterm", "-e", "./time_cli", "127.0.0.1", (char *) 0);
+					   perror("time failed");
 					   printf("In child..child process forked and timed \n");	
 					}				
 					 // child_proc(choice);
 					 } 
 					 else{
 						close(pfd[1]);
+						dup2(pfd[0],0);
+						close(pfd[0]);
 						printf("In parent..child forked\n");
 						//parent_proc(); }	
 					 break;
