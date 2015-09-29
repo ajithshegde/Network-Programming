@@ -38,6 +38,7 @@ void* time_exe(){
 			sleep(5);
 		}
 		Close(connfd);
+		break;
 	}
 	return (NULL);
 
