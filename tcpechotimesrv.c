@@ -9,11 +9,11 @@ void* time_exe(){
 	char                            buff[MAXLINE];
 	time_t                          ticks;
 	int i;
-//	pthread_attr_t time_attr;
-//	
-//	pthread_attr_init(&time_attr);
+	//	pthread_attr_t time_attr;
+	//	
+	//	pthread_attr_init(&time_attr);
 	printf("Thread created\n");
-	
+
 	Pthread_detach(pthread_self());	
 	printf("Thread detached\n");
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
@@ -30,16 +30,21 @@ void* time_exe(){
 	connfd = Accept(listenfd, (SA *) NULL, NULL);
 
 	for ( ; ; ) {
-		
-		for(i=0;i<5;i++){
-			ticks = time(NULL);
-			snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-			Write(connfd, buff, strlen(buff));
-			sleep(5);
-		}
-		Close(connfd);
+
+
+		ticks = time(NULL);
+		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+		if(Write(connfd, buff, strlen(buff)) < 0){
+			printf("Error in client side\n");
+			break;
+		};
+		sleep(5);
+
+
 		break;
 	}
+	Close(connfd);
+
 	return (NULL);
 
 }
@@ -55,8 +60,8 @@ main(int argc, char **argv)
 	tc = pthread_create(&thread_time, NULL,time_exe, NULL);
 	printf("tc = %d\n",tc);	
 	pthread_exit(NULL);
-			
-//time_exe();
-	
+
+	//time_exe();
+
 
 }
