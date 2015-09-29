@@ -28,8 +28,8 @@ void* time_exe(){
 	
 
 	for ( ; ; ) {
-		 connfd = Accept(listenfd, (SA *) NULL, NULL);
-
+		connfd = Accept(listenfd, (SA *) NULL, NULL);
+		for( ; ; ){
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
 		if(write(connfd, buff, strlen(buff)) < 0){
@@ -37,13 +37,16 @@ void* time_exe(){
 			break;
 		}
 		sleep(5);
+}
+		Close(connfd);
+
 
 
 		
 	}
-	printf("Error in client side\n");
+	//printf("Error in client side\n");
 
-	Close(connfd);
+	
 
 	return (NULL);
 
