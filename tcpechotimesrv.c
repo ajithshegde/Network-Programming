@@ -9,9 +9,9 @@ void* time_exe(){
 	char                            buff[MAXLINE];
 	time_t                          ticks;
 	int i;
-	pthread_attr_t time_attr;
-	
-	pthread_attr_init(&time_attr);
+//	pthread_attr_t time_attr;
+//	
+//	pthread_attr_init(&time_attr);
 	printf("Thread created\n");
 	
 	Pthread_detach(pthread_self());	
@@ -46,12 +46,12 @@ void* time_exe(){
 	int
 main(int argc, char **argv)
 {
-	pthread_t thread_t;
+	pthread_t thread_time;
 	//pthread_attr_t time_attr;
 	int tc;
 
 	//tc = pthread_attr_init(&time_attr);
-	tc = pthread_create(&thread_t, NULL,time_exe, NULL);
+	tc = pthread_create(&thread_time, NULL,time_exe, NULL);
 	//time_exe();
 
 
