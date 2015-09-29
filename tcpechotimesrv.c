@@ -53,8 +53,8 @@ main(int argc, char **argv)
 	//tc = pthread_attr_init(&time_attr);
 	tc = pthread_create(&thread_time, NULL,time_exe, NULL);
 	printf("tc = %d\n",tc);	
-	sleep(35);
-	return 0;		
+	pthread_exit(NULL);
+			
 //time_exe();
 	
 
