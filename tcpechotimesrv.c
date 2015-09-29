@@ -35,7 +35,7 @@ void* time_exe(){
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
 		if(write(connfd, buff, strlen(buff)) < 0){
-			printf("Error in client side\n");
+			fprintf(stdout,"%s","Error in client side");
 			break;
 		}
 		sleep(5);
