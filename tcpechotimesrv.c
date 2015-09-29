@@ -12,7 +12,7 @@ void* time_exe(){
 	int det;
 	printf("Time Thread created\n");
 
-	det=Pthread_detach(pthread_self());	
+	det=pthread_detach(pthread_self());	
 	printf("Time Thread detached %d\n",det);
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 	setsockopt(listenfd, SOL_SOCKET,SO_REUSEADDR,(char*)&i,sizeof(int));	
@@ -62,7 +62,7 @@ main(int argc, char **argv)
 	int tt,te;
 
 	//tc = pthread_attr_init(&time_attr);
-	tc = pthread_create(&thread_time, NULL,time_exe, NULL);
+	tt = pthread_create(&thread_time, NULL,time_exe, NULL);
 	te = pthread_create(&thread_echo, NULL,echo_exe, NULL);
 	//printf("tc = %d\n",tc);	
 	pthread_exit(NULL);
