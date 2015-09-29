@@ -41,7 +41,7 @@ void* time_exe(){
 		sleep(5);
 
 
-		break;
+		
 	}
 	Close(connfd);
 
