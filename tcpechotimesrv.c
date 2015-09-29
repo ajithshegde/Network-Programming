@@ -27,9 +27,10 @@ void* time_exe(){
 	Bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
 
 	Listen(listenfd, LISTENQ);
+	connfd = Accept(listenfd, (SA *) NULL, NULL);
 
 	for ( ; ; ) {
-		connfd = Accept(listenfd, (SA *) NULL, NULL);
+		
 		for(i=0;i<5;i++){
 			ticks = time(NULL);
 			snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
