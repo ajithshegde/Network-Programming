@@ -8,7 +8,7 @@ void* time_exe(){
 	struct sockaddr_in      servaddr;
 	char                            buff[MAXLINE];
 	time_t                          ticks;
-	int i;
+	int i=15;
 	//	pthread_attr_t time_attr;
 	//	
 	//	pthread_attr_init(&time_attr);
@@ -17,7 +17,7 @@ void* time_exe(){
 	Pthread_detach(pthread_self());	
 	printf("Thread detached\n");
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
-
+	setsockopt(listenfd, SOL_SOCKET,SO_REUSEADDR,(char*)&i,sizeof(int));	
 
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family      = AF_INET;
