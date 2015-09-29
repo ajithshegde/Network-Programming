@@ -11,7 +11,7 @@ void* time_exe(){
 	int i;
 	pthread_attr_t time_attr;
 	
-	tc = pthread_attr_init(&time_attr);
+	pthread_attr_init(&time_attr);
 	printf("Thread created\n");
 	
 	Pthread_detach(pthread_self());	
