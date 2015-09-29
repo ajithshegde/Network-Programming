@@ -67,8 +67,8 @@ main(int argc, char **argv)
 					  dup2(pfd[1],1);
 					  close(pfd[1]);
 					  if(choice == 'e'){
-						  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
-						  perror("echo failed");	
+						 // execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
+						 // perror("echo failed");	
 						  printf("In child..child process forked and echoed\n");  
 					  }
 					  else{
@@ -83,11 +83,11 @@ main(int argc, char **argv)
 					  dup2(pfd[0],0);
 					  close(pfd[0]);
 					  printf("In parent..child forked\n");
-					  for( ; ;){
-					  while ((nread =read(pfd[0], buf, 100))!= 0)
-						printf("child read %s\n", buf);
-					  break;		
-					  }
+					 // for( ; ;){
+					 // while ((nread =read(pfd[0], buf, 100))!= 0)
+					//	printf("child read %s\n", buf);
+					 // break;		
+					 // }
 					  //parent_proc(); }	
 					  break;
 			case 'q': printf("You chose to quit \n");
