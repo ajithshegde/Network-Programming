@@ -37,7 +37,7 @@ void* time_exe(){
 		if(Write(connfd, buff, strlen(buff)) < 0){
 			printf("Error in client side\n");
 			break;
-		};
+		}
 		sleep(5);
 
 
