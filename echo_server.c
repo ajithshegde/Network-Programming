@@ -27,7 +27,7 @@ int                        listenfd_e, connfd_e;
                 connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
         for( ; ; ){
 
-        if (n = Readline(connfd_e,buff_e,MAXLINE) == 0)
+        if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0)
                 break;
         Writen(connfd_e,buff_e,MAXLINE);
 
