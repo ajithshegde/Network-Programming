@@ -75,10 +75,10 @@ void* echo_exe(){
 	Bind(listenfd_e, (SA *) &servaddr_e, sizeof(servaddr_e));
 
 	Listen(listenfd_e, LISTENQ);
-	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);	
+		
 	for( ; ;){
-
-	
+		connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+	for( ; ; ){	
 	
 	if (n = Readline(connfd_e,buff_e,MAXLINE) == 0)
 		break;
@@ -86,6 +86,7 @@ void* echo_exe(){
 
 }
 	Close(connfd_e);
+}
 	return (NULL);
 } 
 
@@ -97,8 +98,10 @@ main(int argc, char **argv)
 	int tt,te;
 
 	//tc = pthread_attr_init(&time_attr);
-	tt = pthread_create(&thread_time, NULL,time_exe, NULL);
 	te = pthread_create(&thread_echo, NULL,echo_exe, NULL);
+
+	tt = pthread_create(&thread_time, NULL,time_exe, NULL);
+//	te = pthread_create(&thread_echo, NULL,echo_exe, NULL);
 	//printf("tc = %d\n",tc);	
 	pthread_exit(NULL);
 
