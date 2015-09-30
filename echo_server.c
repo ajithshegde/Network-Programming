@@ -35,7 +35,7 @@ int                        listenfd_e, connfd_e;
         Close(connfd_e);
         break;
 }
-        return (NULL);
+        return 0;
 
 
 
