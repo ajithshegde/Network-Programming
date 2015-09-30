@@ -47,7 +47,7 @@ int main(int argc,char** argv){
 			Writen(sockfd, sndline, strlen(sndline));	
 			
 }		
-
+}
 /*
 while( Fgets(sndline,MAXLINE,stdin) != NULL ){
 			Writen(sockfd, sndline, strlen(sndline));
