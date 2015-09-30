@@ -31,8 +31,8 @@ int                        listenfd_e, connfd_e;
                 connfd_e = Accept(listenfd_e,(SA*) &cliaddr_e, &clilen);
 		
 		if((childpid = Fork()) == 0){
-			Close(listenfd);
-			str_echo(connfd);
+			Close(listenfd_e);
+			str_echo(connfd_e);
 			exit(0);
 }
 /*        for( ; ; ){
@@ -58,10 +58,10 @@ ssize_t n;
 for( ; ; ){
         // bzero(&servaddr_e, sizeof(servaddr_e));
 
-        if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0){
-                break;}
+        if( (n = Readline(sockfd,line,MAXLINE)) == 0){
+                return;}
 
-        Writen(connfd_e,buff_e,MAXLINE);
+        Writen(sockfd,line,n);
 
 }
 
