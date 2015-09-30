@@ -24,8 +24,8 @@ int                        listenfd_e, connfd_e;
         Listen(listenfd_e, LISTENQ);
 
         for( ; ;){
-		clilen = sizeof(cliaddr);
-                connfd_e = Accept(listenfd_e,(SA*) &cliaddr, &clilen);
+		clilen = sizeof(cliaddr_e);
+                connfd_e = Accept(listenfd_e,(SA*) &cliaddr_e, &clilen);
         for( ; ; ){
 	// bzero(&servaddr_e, sizeof(servaddr_e));
 
