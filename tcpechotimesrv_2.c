@@ -71,7 +71,7 @@ main(int argc, char **argv)
 	struct sockaddr_in      servaddr;
 	char                            buff[MAXLINE];
 	int                        listenfd_e, connfd_e;
-	struct sockaddr_in      servaddr_e;
+	struct sockaddr_in      servaddr_e,cliaddr;
 	char buff_e[MAXLINE];
 	//pthread_t thread_time,thread_echo;
 	int i=10,j=10;
