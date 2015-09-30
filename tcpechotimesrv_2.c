@@ -119,7 +119,7 @@ main(int argc, char **argv)
 
 
 	for( ; ; ){
-
+		FD_ZERO(&rset);
 
 		FD_SET(listenfd_e,&rset);
 		FD_SET(listenfd,&rset);
@@ -131,7 +131,7 @@ main(int argc, char **argv)
 		 if(FD_ISSET(listenfd_e,&rset)){
 			clilen = sizeof(cliaddr);
                         connfd_e = Accept(listenfd_e,(SA*) &cliaddr, &clilen);
-                        pthread_create(NULL, NULL,&echo_exe, (void *)connfd_e);
+                        pthread_create(NULL, NULL,echo_exe, (void *)connfd_e);
 
                 }
 
@@ -142,11 +142,11 @@ main(int argc, char **argv)
 
 		if(FD_ISSET(listenfd,&rset)){
 			connfd = Accept(listenfd, (SA *) NULL, NULL);
-			pthread_create(NULL, NULL,&time_exe, (void *)connfd);
+			pthread_create(NULL, NULL,time_exe, (void *)connfd);
 
 		}
 		
-
+		FD_CLR(&rset);
 	}
 
 
