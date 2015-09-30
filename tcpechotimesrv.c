@@ -56,7 +56,7 @@ void* echo_exe(){
 
 	int                        listenfd_e, connfd_e;
 	struct sockaddr_in      servaddr_e;
-	char                            buff_e[MAXLINE];
+	char buff_e[MAXLINE];
 
 	int j=15;
 	int dete,n;
@@ -75,14 +75,14 @@ void* echo_exe(){
 	Bind(listenfd_e, (SA *) &servaddr_e, sizeof(servaddr_e));
 
 	Listen(listenfd_e, LISTENQ);
-	
+	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);	
 	for( ; ;){
 
-	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+	
 	
 	if (n = Readline(connfd_e,buff_e,MAXLINE) == 0)
-		return ;
-	Writen(connfd_e,buff_e,n);
+		break;
+	Writen(connfd_e,buff_e,MAXLINE);
 
 }
 	Close(connfd_e);
