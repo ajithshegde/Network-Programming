@@ -15,19 +15,19 @@ static void* time_exe(void *arg){
 	printf("Time Thread detached %d\n",det);
 
 
-
+	for( ; ; ){
 	for( ; ; ){
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-		if(write((int)arg, buff, strlen(buff)) < 0){
+		Write((int)arg, buff, strlen(buff));
 			//fprintf(stdout,"%s","Error in client side");
-			break;
-		}
+		
 		sleep(5);
 
 	}
 	Close((int)arg);
-
+	break;
+}
 	//printf("Error in client side\n");
 
 
