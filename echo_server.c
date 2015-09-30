@@ -22,10 +22,11 @@ int                        listenfd_e, connfd_e;
         Bind(listenfd_e, (SA *) &servaddr_e, sizeof(servaddr_e));
 
         Listen(listenfd_e, LISTENQ);
-
-        for( ; ;){
-		clilen = sizeof(cliaddr_e);
+	clilen = sizeof(cliaddr_e);
                 connfd_e = Accept(listenfd_e,(SA*) &cliaddr_e, &clilen);
+        for( ; ;){
+		//clilen = sizeof(cliaddr_e);
+                //connfd_e = Accept(listenfd_e,(SA*) &cliaddr_e, &clilen);
         for( ; ; ){
 	// bzero(&servaddr_e, sizeof(servaddr_e));
 
