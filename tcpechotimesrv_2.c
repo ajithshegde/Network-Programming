@@ -45,28 +45,28 @@ static void* echo_exe(void* arg){
 
 	int j=15;
 	int dete,n;
-	int connfd;
+//	int conn;
 
 
 	printf("Echo Thread created\n");
 	
 	dete=pthread_detach(pthread_self());
 	printf("Echo Thread detached %d\n",dete);
-	connfd = *((int *)arg);
-	free(arg);
+//	conn = *((int *)arg);
+//	free(arg);
 	//for( ; ;){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-/*	for( ; ; ){	
+	for( ; ; ){	
 
 		if (n = readline((int)arg,buff_e,MAXLINE) == 0){
 			break;
 		}
 		writen((int)arg,buff_e,MAXLINE);
 
-	}	*/
+	}	
 
-	str_echo(connfd);
-	Close(connfd);
+//	str_echo(conn);
+	Close((int)arg);
 
 
 	return (NULL);
@@ -122,9 +122,11 @@ main(int argc, char **argv)
 
 
 		FD_SET(listenfd_e,&rset_e);
+		FD_SET(listenfd,&rset_t);
+
 		//maxfdp_e = listenfd_e+1;
 		maxfdp = max(listenfd_e,listenfd)+1;
-		Select(maxfdp, &rset_t, NULL, NULL, NULL);
+		Select(maxfdp, &rset_e, NULL, NULL, NULL);
 
 		 if(FD_ISSET(listenfd_e,&rset_e)){
 			clilen = sizeof(cliaddr);
@@ -134,7 +136,7 @@ main(int argc, char **argv)
                 }
 
 			
-		FD_SET(listenfd,&rset_t);
+		
 		//maxfdp_t = listenfd+1;
 		//Select(maxfdp_t, &wset_t, NULL, NULL, NULL);
 
@@ -163,7 +165,7 @@ main(int argc, char **argv)
 	//time_exe();
 }
 
-void str_echo(int sockfd){
+/*void str_echo(int sockfd){
 char line[MAXLINE];
 ssize_t n;
 
@@ -178,5 +180,5 @@ for( ; ; ){
 }
 
 
-}
+}*/
 
