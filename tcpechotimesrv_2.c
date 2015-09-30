@@ -2,7 +2,7 @@
 #include	"unp.h"
 #include	<time.h>
 
-void str_echo(int);
+
 
 static void* time_exe(void *arg){
 
@@ -17,7 +17,7 @@ static void* time_exe(void *arg){
 	printf("Time Thread detached %d\n",det);
 
 
-	for( ; ; ){
+//	for( ; ; ){
 	for( ; ; ){
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
@@ -28,8 +28,8 @@ static void* time_exe(void *arg){
 
 	}
 	Close((int)arg);
-	break;
-}
+//	break;
+//}
 	//printf("Error in client side\n");
 
 
