@@ -85,8 +85,8 @@ void* echo_exe(){
 	Writen(connfd_e,buff_e,MAXLINE);
 
 }	
-	break;
 	Close(connfd_e);
+	break;
 }
 	return (NULL);
 } 
