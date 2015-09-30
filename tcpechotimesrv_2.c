@@ -14,24 +14,20 @@ void* time_exe(void *arg){
 	det=pthread_detach(pthread_self());	
 	printf("Time Thread detached %d\n",det);
 
-	
-		
-		for( ; ; ){
-			ticks = time(NULL);
-			snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-			if(write((int)arg, buff, strlen(buff)) < 0){
-				//fprintf(stdout,"%s","Error in client side");
-				break;
-			}
-			sleep(5);
-		
-}
-		Close((int)arg);
 
 
+	for( ; ; ){
+		ticks = time(NULL);
+		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+		if(write((int)arg, buff, strlen(buff)) < 0){
+			//fprintf(stdout,"%s","Error in client side");
+			break;
+		}
+		sleep(5);
 
+	}
+	Close((int)arg);
 
-	
 	//printf("Error in client side\n");
 
 
@@ -40,7 +36,7 @@ void* time_exe(void *arg){
 
 }
 
-void* echo_exe(){
+void* echo_exe(void* arg){
 
 
 	char buff_e[MAXLINE];
@@ -52,18 +48,19 @@ void* echo_exe(){
 	dete=pthread_detach(pthread_self());
 	printf("Echo Thread detached %d\n",dete);
 
-	for( ; ;){
-		connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-		for( ; ; ){	
+	//for( ; ;){
+	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+	for( ; ; ){	
 
-			if (n = Readline(connfd_e,buff_e,MAXLINE) == 0)
-				break;
-			Writen(connfd_e,buff_e,MAXLINE);
+		if (n = Readline((int)arg,buff_e,MAXLINE) == 0){
+			break;
+		}
+		Writen((int)arg,buff_e,MAXLINE);
 
-		}	
-		Close(connfd_e);
-		break;
-	}
+	}	
+	Close((int)arg);
+
+
 	return (NULL);
 } 
 
@@ -106,40 +103,40 @@ main(int argc, char **argv)
 	Bind(listenfd_e, (SA *) &servaddr_e, sizeof(servaddr_e));
 
 	Listen(listenfd_e, LISTENQ);
-	
+
 	FD_ZERO(&rset_t);
 	FD_ZERO(&rset_e);
 
 
 	for( ; ; ){
-	
-	 
-         FD_SET(listenfd_e,&rset_e);
-         maxfdp_e = listenfd_e+1;
-         Select(maxfdp_e, &rset_e, NULL, NULL, NULL);
-
-	
-	 FD_SET(listenfd,&rset_t);
-         maxfdp_t = listenfd+1;
-         Select(maxfdp_t, &rset_t, NULL, NULL, NULL);
-	
-	if(FD_ISSET(listenfd,&rset_t)){
-	connfd = Accept(listenfd, (SA *) NULL, NULL);
-	 pthread_create(&thread_time, NULL,&time_exe, (void *)connfd);
-
-}
-	if(FD_ISSET(listenfd_e,&rset_e)){
-	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-	pthread_create(&thread_echo, NULL,echo_exe, NULL);
-
-}
-
-}
 
 
-//	pthread_t thread_time,thread_echo;
+		FD_SET(listenfd_e,&rset_e);
+		maxfdp_e = listenfd_e+1;
+		Select(maxfdp_e, &rset_e, NULL, NULL, NULL);
+
+
+		FD_SET(listenfd,&rset_t);
+		maxfdp_t = listenfd+1;
+		Select(maxfdp_t, &rset_t, NULL, NULL, NULL);
+
+		if(FD_ISSET(listenfd,&rset_t)){
+			connfd = Accept(listenfd, (SA *) NULL, NULL);
+			pthread_create(&thread_time, NULL,&time_exe, (void *)connfd);
+
+		}
+		if(FD_ISSET(listenfd_e,&rset_e)){
+			connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+			pthread_create(&thread_echo, NULL,echo_exe, NULL);
+
+		}
+
+	}
+
+
+	//	pthread_t thread_time,thread_echo;
 	//pthread_attr_t time_attr;
-//	int tt,te;
+	//	int tt,te;
 
 	//tc = pthread_attr_init(&time_attr);
 	pthread_create(&thread_echo, NULL,echo_exe, NULL);
