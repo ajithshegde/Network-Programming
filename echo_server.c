@@ -26,6 +26,7 @@ int                        listenfd_e, connfd_e;
         for( ; ;){
                 connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
         for( ; ; ){
+	 bzero(&servaddr_e, sizeof(servaddr_e));
 
         if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0)
                 break;
