@@ -1,11 +1,13 @@
 #include "unp.h"
+void str_echo(int);
 
 int main(int argc,char** argv){
 int                        listenfd_e, connfd_e;
         struct sockaddr_in      servaddr_e,cliaddr_e;
-        char buff_e[MAXLINE];
+       // char buff_e[MAXLINE];
 	socklen_t clilen;
         int j=15,n;
+	pid_t childpid;
 //        int dete,n;
   //      printf("Echo Thread created\n");
 
@@ -27,7 +29,13 @@ int                        listenfd_e, connfd_e;
         for( ; ;){
 		clilen = sizeof(cliaddr_e);
                 connfd_e = Accept(listenfd_e,(SA*) &cliaddr_e, &clilen);
-        for( ; ; ){
+		
+		if((childpid = Fork()) == 0){
+			Close(listenfd);
+			str_echo(connfd);
+			exit(0);
+}
+/*        for( ; ; ){
 	// bzero(&servaddr_e, sizeof(servaddr_e));
 
         if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0){
@@ -35,14 +43,27 @@ int                        listenfd_e, connfd_e;
 	
         Writen(connfd_e,buff_e,MAXLINE);
 
-}
+}*/
         Close(connfd_e);
        
 }
         return 0;
 
+}
 
+void str_echo(int sockfd){
+char line[MAXLINE];
+ssize_t n;
 
+for( ; ; ){
+        // bzero(&servaddr_e, sizeof(servaddr_e));
+
+        if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0){
+                break;}
+
+        Writen(connfd_e,buff_e,MAXLINE);
+
+}
 
 
 }
