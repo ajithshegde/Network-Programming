@@ -2,6 +2,8 @@
 #include	"unp.h"
 #include	<time.h>
 
+void str_echo(int);
+
 static void* time_exe(void *arg){
 
 	char                            buff[MAXLINE];
@@ -43,22 +45,28 @@ static void* echo_exe(void* arg){
 
 	int j=15;
 	int dete,n;
-	printf("Echo Thread created\n");
+	int connfd;
 
+
+	printf("Echo Thread created\n");
+	
 	dete=pthread_detach(pthread_self());
 	printf("Echo Thread detached %d\n",dete);
-
+	connfd = *((int *)arg);
+	free arg;
 	//for( ; ;){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-	for( ; ; ){	
+/*	for( ; ; ){	
 
 		if (n = readline((int)arg,buff_e,MAXLINE) == 0){
 			break;
 		}
 		writen((int)arg,buff_e,MAXLINE);
 
-	}	
-	Close((int)arg);
+	}	*/
+
+	str_echo(connfd);
+	Close(connfd);
 
 
 	return (NULL);
@@ -153,6 +161,22 @@ main(int argc, char **argv)
 	//pthread_exit(NULL);
 
 	//time_exe();
+}
+
+void str_echo(int sockfd){
+char line[MAXLINE];
+ssize_t n;
+
+for( ; ; ){
+        // bzero(&servaddr_e, sizeof(servaddr_e));
+
+        if( (n = Readline(sockfd,line,MAXLINE)) == 0){
+                return;}
+
+        Writen(sockfd,line,n);
+
+}
 
 
 }
+
