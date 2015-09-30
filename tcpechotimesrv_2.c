@@ -75,8 +75,9 @@ main(int argc, char **argv)
 	char buff_e[MAXLINE];
 	//pthread_t thread_time,thread_echo;
 	int i=10,j=10;
-	int maxfdp_t,maxfdp_e;
-	fd_set rset_t,rset_e;
+	//int maxfdp_t,maxfdp_e;
+	int maxfdp;
+	fd_set wset_t,rset_e;
 
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 	setsockopt(listenfd, SOL_SOCKET,SO_REUSEADDR,(char*)&i,sizeof(int));
@@ -104,7 +105,7 @@ main(int argc, char **argv)
 
 	Listen(listenfd_e, LISTENQ);
 
-	FD_ZERO(&rset_t);
+	FD_ZERO(&wset_t);
 	FD_ZERO(&rset_e);
 
 
@@ -112,8 +113,9 @@ main(int argc, char **argv)
 
 
 		FD_SET(listenfd_e,&rset_e);
-		maxfdp_e = listenfd_e+1;
-		Select(maxfdp_e, &rset_e, NULL, NULL, NULL);
+		//maxfdp_e = listenfd_e+1;
+		maxfdp = max(listenfd_e,listenfd)+1;
+		Select(maxfdp, &rset_e, &wset_t, NULL, NULL);
 
 		 if(FD_ISSET(listenfd_e,&rset_e)){
                         connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
@@ -122,11 +124,11 @@ main(int argc, char **argv)
                 }
 
 			
-		FD_SET(listenfd,&rset_t);
-		maxfdp_t = listenfd+1;
-		Select(maxfdp_t, &rset_t, NULL, NULL, NULL);
+		FD_SET(listenfd,&wset_t);
+		//maxfdp_t = listenfd+1;
+		//Select(maxfdp_t, &wset_t, NULL, NULL, NULL);
 
-		if(FD_ISSET(listenfd,&rset_t)){
+		if(FD_ISSET(listenfd,&wset_t)){
 			connfd = Accept(listenfd, (SA *) NULL, NULL);
 			pthread_create(NULL, NULL,&time_exe, (void *)connfd);
 
