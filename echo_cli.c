@@ -10,9 +10,8 @@ int main(int argc,char** argv){
 	strcpy(last,"Child terminated");	
 	pf = atoi(argv[2]);
 	if(argc <3){
-		
-err_quit("usage:tcpcli <IPaddress>");
-}
+		err_quit("usage:tcpcli <IPaddress>");
+	}
 	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
 
 	bzero(&servaddr, sizeof(servaddr));
@@ -24,14 +23,15 @@ err_quit("usage:tcpcli <IPaddress>");
 	for( ; ; ){
 		while( Fgets(sndline,MAXLINE,stdin) != NULL ){
 			Writen(sockfd, sndline, strlen(sndline));
-			//write(pf,buf,strlen(buf)+1);
+			
 			if(Readline(sockfd, rcvline, MAXLINE) == 0){
 				//write(pf,last,strlen(last)+1);
 				err_quit("server terminated");
 			}
 			Fputs(rcvline,stdout);
+			write(pf,buf,strlen(buf)+1);
 		}
-		
+
 	}
 
 	/*	char in_str[100];
