@@ -77,9 +77,9 @@ main(int argc, char **argv)
 	struct sockaddr_in      servaddr_e;
 	char buff_e[MAXLINE];
 	pthread_t thread_time,thread_echo;
-
+	int i=10,j=10;
 	int maxfdp_t,maxfdp_e;
-	fdset rset_t,rset_e;
+	fd_set rset_t,rset_e;
 
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 	setsockopt(listenfd, SOL_SOCKET,SO_REUSEADDR,(char*)&i,sizeof(int));
@@ -137,7 +137,7 @@ main(int argc, char **argv)
 }
 
 
-	pthread_t thread_time,thread_echo;
+//	pthread_t thread_time,thread_echo;
 	//pthread_attr_t time_attr;
 //	int tt,te;
 
