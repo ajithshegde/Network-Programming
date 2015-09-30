@@ -31,7 +31,12 @@ FLAGS = -g -O2
 
 CFLAGS = ${FLAGS} -I/home/courses/cse533/Stevens/unpv13e_solaris2.10/lib
 
-all: client server echo_cli time_cli daytimeaddress echo_server
+all: client server echo_cli time_cli daytimeaddress echo_server server_2
+
+server_2: tcpechotimesrv_2.o readline.o
+	${CC} ${FLAGS} -o server_2 tcpechotimesrv_2.o readline.o ${LIBS}
+tcpechotimesrv_2.o: tcpechotimesrv_2.c
+	${CC} ${CFLAGS} -c tcpechotimesrv_2.c
 
 echo_server: echo_server.o
 	${CC} ${FLAGS} -o echo_server echo_server.o ${LIBS}
