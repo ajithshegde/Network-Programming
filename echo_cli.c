@@ -23,14 +23,14 @@ int main(int argc,char** argv){
 	for( ; ; ){
 		while( Fgets(sndline,MAXLINE,stdin) != NULL ){
 			Writen(sockfd, sndline, strlen(sndline));
-			write(pf,buf,strlen(buf)+1);
+			//write(pf,buf,strlen(buf)+1);
 			if(Readline(sockfd, rcvline, MAXLINE) == 0){
-				write(pf,last,strlen(last)+1);
+				//write(pf,last,strlen(last)+1);
 				err_quit("server terminated");
 			}
 			Fputs(rcvline,stdout);
 		}
-
+		
 	}
 
 	/*	char in_str[100];
