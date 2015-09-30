@@ -80,10 +80,10 @@ void* echo_exe(){
 
 	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
 	
-	if( (n = readline(connfd_e,buff_e,MAXLINE) == 0){
+	if (n = readline(connfd_e,buff_e,MAXLINE) == 0)
 		return ;
 
-}
+
 }
 	return (NULL);
 } 
