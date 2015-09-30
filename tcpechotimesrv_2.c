@@ -45,14 +45,14 @@ static void* echo_exe(void* arg){
 
 	int j=15;
 	int dete,n;
-	int connfd;
+	int conn;
 
 
 	printf("Echo Thread created\n");
 	
 	dete=pthread_detach(pthread_self());
 	printf("Echo Thread detached %d\n",dete);
-	connfd = *((int *)arg);
+	conn = *((int *)arg);
 	free(arg);
 	//for( ; ;){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
@@ -65,8 +65,8 @@ static void* echo_exe(void* arg){
 
 	}	*/
 
-	str_echo(connfd);
-	Close(connfd);
+	str_echo(conn);
+	Close(conn);
 
 
 	return (NULL);
@@ -122,6 +122,8 @@ main(int argc, char **argv)
 
 
 		FD_SET(listenfd_e,&rset_e);
+		FD_SET(listenfd,&rset_t);
+
 		//maxfdp_e = listenfd_e+1;
 		maxfdp = max(listenfd_e,listenfd)+1;
 		Select(maxfdp, &rset_t, NULL, NULL, NULL);
@@ -134,7 +136,7 @@ main(int argc, char **argv)
                 }
 
 			
-		FD_SET(listenfd,&rset_t);
+		
 		//maxfdp_t = listenfd+1;
 		//Select(maxfdp_t, &wset_t, NULL, NULL, NULL);
 
