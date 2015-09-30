@@ -9,7 +9,11 @@ main(int argc, char **argv)
 	int					sockfd, n;
 	char				recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
+	int pf;
+	char buf[100];
+	strcpy(buf,"Copied");
 
+	pf = atoi(argv[2]);
 	if (argc < 3)
 		err_quit("usage: a.out <IPaddress>");
 	//sleep(5);
@@ -30,6 +34,7 @@ main(int argc, char **argv)
 		recvline[n] = 0;	
 		if (fputs(recvline, stdout) == EOF)
 			err_sys("fputs error");
+		write(pf,buf,strlen(buf)+1);
 	}}
 	if (n < 0)
 		err_sys("read error");

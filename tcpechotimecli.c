@@ -84,11 +84,11 @@ main(int argc, char **argv)
 					  
 					  
 					  printf("In parent..child forked\n");
-					 // for( ; ;){
-					 // while ((nread =read(pfd[0], buf, 100))!= 0)
-					//	printf("child read %s\n", buf);
-					 // break;		
-					 // }
+					 for( ; ;){
+					    while ((nread =read(pfd[0], buf, 100))!= 0)
+						printf("child read %s\n", buf);
+					    break;		
+					 }
 					  //parent_proc(); }	
 					  break;
 			case 'q': printf("You chose to quit \n");
