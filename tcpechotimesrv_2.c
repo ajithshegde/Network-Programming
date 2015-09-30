@@ -53,7 +53,7 @@ static void* echo_exe(void* arg){
 	dete=pthread_detach(pthread_self());
 	printf("Echo Thread detached %d\n",dete);
 	connfd = *((int *)arg);
-	free arg;
+	free(arg);
 	//for( ; ;){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
 /*	for( ; ; ){	
