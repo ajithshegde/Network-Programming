@@ -59,6 +59,8 @@ int main(int argc,char** argv){
 			}
 			Fputs(rcvline,stdout);
 			write(pf,buf,strlen(buf)+1);
+			memset(rcvline,0,sizeof(rcvline));
+			memset(sndline,0,sizeof(sndline));
 		}
 
 	}

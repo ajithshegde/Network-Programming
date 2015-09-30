@@ -58,11 +58,11 @@ static void* echo_exe(void* arg){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
 	for( ; ; ){	
 
-		if (n = readline((int)arg,buff_e,MAXLINE) == 0){
+		if( (n = readline((int)arg,buff_e,MAXLINE)) == 0){
 			break;
 		}
-		writen((int)arg,buff_e,MAXLINE);
-
+		writen((int)arg,buff_e,strlen(buff_e));
+		memset(buff_e,0,sizeof(buff_e));
 	}	
 
 //	str_echo(conn);
