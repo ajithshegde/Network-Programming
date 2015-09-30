@@ -32,8 +32,8 @@ main(int argc, char **argv)
 	for( ; ; ){
 	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
 		recvline[n] = 0;	
-		if (fputs(recvline, stdout) == EOF)
-			err_sys("fputs error");
+		if (fputs(recvline, stdout) == EOF){
+			err_sys("fputs error");}
 		write(pf,buf,strlen(buf)+1);
 	}}
 	if (n < 0)
