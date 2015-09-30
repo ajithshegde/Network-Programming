@@ -4,8 +4,12 @@ int main(int argc,char** argv){
 	int sockfd;
 	struct sockaddr_in servaddr;
 	char rcvline[MAXLINE],sndline[MAXLINE];
-	
-	if(argc != 2)
+	int pf;
+	char buf[100],last[100];
+	strcpy(buf,"Echo input given");	
+	strcpy(last,"Child terminated");	
+
+	if(argc <3)
 		err_quit("usage:tcpcli <IPaddress>");
 
 	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
@@ -15,24 +19,25 @@ int main(int argc,char** argv){
 	servaddr.sin_port = htons(14087);
 	Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 	Connect(sockfd,(SA*) &servaddr, sizeof(servaddr));
-	
+
 	for( ; ; ){
-	while( Fgets(sndline,MAXLINE,stdin) != NULL ){
-		Writen(sockfd, sndline, strlen(sndline));
-		
-		if(Readline(sockfd, rcvline, MAXLINE) == 0)
-			err_quit("server terminated");
+		while( Fgets(sndline,MAXLINE,stdin) != NULL ){
+			Writen(sockfd, sndline, strlen(sndline));
+			write(pf,buf,strlen(buf)+1);
+			if(Readline(sockfd, rcvline, MAXLINE) == 0){
+				write(pf,last,strlen(last)+1);
+				err_quit("server terminated");
+			}
+			Fputs(rcvline,stdout);
+		}
 
-		Fputs(rcvline,stdout);
-}
-	
-}
+	}
 
-/*	char in_str[100];
-	for( ; ;){
+	/*	char in_str[100];
+		for( ; ;){
 		scanf("%s",in_str);
 		printf("%s\n",in_str);
-		//write(pfd[1], in_str,strlen(in_str)+1);
+	//write(pfd[1], in_str,strlen(in_str)+1);
 	}*/
 
 	return 0;
