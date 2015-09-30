@@ -73,7 +73,7 @@ main(int argc, char **argv)
 	int                        listenfd_e, connfd_e;
 	struct sockaddr_in      servaddr_e;
 	char buff_e[MAXLINE];
-	pthread_t thread_time,thread_echo;
+	//pthread_t thread_time,thread_echo;
 	int i=10,j=10;
 	int maxfdp_t,maxfdp_e;
 	fd_set rset_t,rset_e;
@@ -122,12 +122,12 @@ main(int argc, char **argv)
 
 		if(FD_ISSET(listenfd,&rset_t)){
 			connfd = Accept(listenfd, (SA *) NULL, NULL);
-			pthread_create(&thread_time, NULL,&time_exe, (void *)connfd);
+			pthread_create(NULL, NULL,&time_exe, (void *)connfd);
 
 		}
 		if(FD_ISSET(listenfd_e,&rset_e)){
 			connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-			pthread_create(&thread_echo, NULL,echo_exe, NULL);
+			pthread_create(NULL, NULL,&echo_exe, NULL);
 
 		}
 
@@ -139,12 +139,12 @@ main(int argc, char **argv)
 	//	int tt,te;
 
 	//tc = pthread_attr_init(&time_attr);
-	pthread_create(&thread_echo, NULL,echo_exe, NULL);
+	//pthread_create(&thread_echo, NULL,echo_exe, NULL);
 
-	pthread_create(&thread_time, NULL,time_exe, NULL);
+	//pthread_create(&thread_time, NULL,time_exe, NULL);
 	//	te = pthread_create(&thread_echo, NULL,echo_exe, NULL);
 	//printf("tc = %d\n",tc);	
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 
 	//time_exe();
 
