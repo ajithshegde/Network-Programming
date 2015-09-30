@@ -10,9 +10,9 @@ main(int argc, char **argv)
 	char				recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
 	int pf;
-	char buf[100];
-	strcpy(buf,"Copied");
-
+	char buf[100],last[100];
+	strcpy(buf,"Time displayed");
+	strcpy(last,"Time Child terminating");
 	pf = atoi(argv[2]);
 	if (argc < 3)
 		err_quit("usage: a.out <IPaddress>");
