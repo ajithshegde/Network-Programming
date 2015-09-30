@@ -68,8 +68,8 @@ main(int argc, char **argv)
 					  sprintf(pf,"%d",pfd[1]);
 					  					  
 				          if(choice == 'e'){
-						 // execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
-						 // perror("echo failed");	
+						  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1", (char *) 0);
+						    perror("echo failed");	
 						  printf("In child..child process forked and echoed\n");  
 					  }
 					  else{

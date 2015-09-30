@@ -25,28 +25,28 @@ void* time_exe(){
 	Bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
 
 	Listen(listenfd, LISTENQ);
-	
+
 
 	for ( ; ; ) {
 		connfd = Accept(listenfd, (SA *) NULL, NULL);
 		for( ; ; ){
-		ticks = time(NULL);
-		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-		if(write(connfd, buff, strlen(buff)) < 0){
-			//fprintf(stdout,"%s","Error in client side");
-			break;
+			ticks = time(NULL);
+			snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+			if(write(connfd, buff, strlen(buff)) < 0){
+				//fprintf(stdout,"%s","Error in client side");
+				break;
+			}
+			sleep(5);
 		}
-		sleep(5);
-}
 		Close(connfd);
 
 
 
-		
+
 	}
 	//printf("Error in client side\n");
 
-	
+
 
 	return (NULL);
 
@@ -54,7 +54,38 @@ void* time_exe(){
 
 void* echo_exe(){
 
+	int                        listenfd_e, connfd_e;
+	struct sockaddr_in      servaddr_e;
+	char                            buff_e[MAXLINE];
 
+	int j=15;
+	int dete,n;
+	printf("Echo Thread created\n");
+
+	dete=pthread_detach(pthread_self());
+	printf("Echo Thread detached %d\n",dete);
+	listenfd_e = Socket(AF_INET, SOCK_STREAM, 0);
+	setsockopt(listenfd_e, SOL_SOCKET,SO_REUSEADDR,(char*)&j,sizeof(int));
+
+	bzero(&servaddr_e, sizeof(servaddr_e));
+	servaddr_e.sin_family      = AF_INET;
+	servaddr_e.sin_addr.s_addr = htonl(INADDR_ANY);
+	servaddr_e.sin_port        = htons(14087);        
+
+	Bind(listenfd_e, (SA *) &servaddr_e, sizeof(servaddr_e));
+
+	Listen(listenfd_e, LISTENQ);
+	
+	for( ; ;){
+
+	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+	
+	if( (n = readline(connfd_e,buff_e,MAXLINE) == 0){
+		return ;
+
+}
+}
+	return (NULL);
 } 
 
 	int
