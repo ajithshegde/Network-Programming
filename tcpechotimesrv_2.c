@@ -85,7 +85,7 @@ main(int argc, char **argv)
 	int i=10,j=10;
 	//int maxfdp_t,maxfdp_e;
 	int maxfdp;
-	fd_set rset_t,rset_e;
+	fd_set rset;
 	socklen_t clilen;
 
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
@@ -114,21 +114,21 @@ main(int argc, char **argv)
 
 	Listen(listenfd_e, LISTENQ);
 
-	FD_ZERO(&rset_t);
-	FD_ZERO(&rset_e);
+	FD_ZERO(&rset);
+
 
 
 	for( ; ; ){
 
 
-		FD_SET(listenfd_e,&rset_e);
-		FD_SET(listenfd,&rset_t);
+		FD_SET(listenfd_e,&rset);
+		FD_SET(listenfd,&rset);
 
 		//maxfdp_e = listenfd_e+1;
 		maxfdp = max(listenfd_e,listenfd)+1;
-		Select(maxfdp, &rset_e, NULL, NULL, NULL);
+		Select(maxfdp, &rset, NULL, NULL, NULL);
 
-		 if(FD_ISSET(listenfd_e,&rset_e)){
+		 if(FD_ISSET(listenfd_e,&rset)){
 			clilen = sizeof(cliaddr);
                         connfd_e = Accept(listenfd_e,(SA*) &cliaddr, &clilen);
                         pthread_create(NULL, NULL,&echo_exe, (void *)connfd_e);
@@ -140,7 +140,7 @@ main(int argc, char **argv)
 		//maxfdp_t = listenfd+1;
 		//Select(maxfdp_t, &wset_t, NULL, NULL, NULL);
 
-		if(FD_ISSET(listenfd,&rset_t)){
+		if(FD_ISSET(listenfd,&rset)){
 			connfd = Accept(listenfd, (SA *) NULL, NULL);
 			pthread_create(NULL, NULL,&time_exe, (void *)connfd);
 
