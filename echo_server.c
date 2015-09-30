@@ -2,9 +2,9 @@
 
 int main(int argc,char** argv){
 int                        listenfd_e, connfd_e;
-        struct sockaddr_in      servaddr_e;
+        struct sockaddr_in      servaddr_e,cliaddr_e;
         char buff_e[MAXLINE];
-
+	socklen_t clilen;
         int j=15,n;
 //        int dete,n;
   //      printf("Echo Thread created\n");
@@ -24,9 +24,10 @@ int                        listenfd_e, connfd_e;
         Listen(listenfd_e, LISTENQ);
 
         for( ; ;){
-                connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+		clilen = sizeof(cliaddr);
+                connfd_e = Accept(listenfd_e,(SA*) &cliaddr, &clilen);
         for( ; ; ){
-	 bzero(&servaddr_e, sizeof(servaddr_e));
+	// bzero(&servaddr_e, sizeof(servaddr_e));
 
         if( (n = Readline(connfd_e,buff_e,MAXLINE)) == 0)
                 break;
@@ -34,7 +35,7 @@ int                        listenfd_e, connfd_e;
 
 }
         Close(connfd_e);
-        break;
+       
 }
         return 0;
 
