@@ -124,7 +124,7 @@ main(int argc, char **argv)
 		FD_SET(listenfd_e,&rset_e);
 		//maxfdp_e = listenfd_e+1;
 		maxfdp = max(listenfd_e,listenfd)+1;
-		Select(maxfdp, &rset_e, NULL, NULL, NULL);
+		Select(maxfdp, &rset_t, NULL, NULL, NULL);
 
 		 if(FD_ISSET(listenfd_e,&rset_e)){
 			clilen = sizeof(cliaddr);
