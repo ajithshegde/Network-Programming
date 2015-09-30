@@ -5,7 +5,7 @@ int                        listenfd_e, connfd_e;
         struct sockaddr_in      servaddr_e;
         char buff_e[MAXLINE];
 
-        int j=15;
+        int j=15,n;
 //        int dete,n;
   //      printf("Echo Thread created\n");
 
