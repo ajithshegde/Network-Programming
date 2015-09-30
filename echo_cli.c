@@ -10,7 +10,7 @@ int main(int argc,char** argv){
 	strcpy(last,"Child terminated");	
 	pf = atoi(argv[2]);
 	if(argc <3){
-sleep(5);		
+		
 err_quit("usage:tcpcli <IPaddress>");
 }
 	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
