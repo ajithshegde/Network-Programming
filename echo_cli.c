@@ -45,7 +45,7 @@ int main(int argc,char** argv){
 				return;
 }
 			Writen(sockfd, sndline, strlen(sndline));	
-			
+			write(pf,buf,strlen(buf)+1);	
 }		
 }
 /*
