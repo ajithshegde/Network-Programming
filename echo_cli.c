@@ -8,7 +8,7 @@ int main(int argc,char** argv){
 	char buf[100],last[100];
 	strcpy(buf,"Echo input given");	
 	strcpy(last,"Child terminated");	
-
+	pf = atoi(argv[2]);
 	if(argc <3)
 		err_quit("usage:tcpcli <IPaddress>");
 
