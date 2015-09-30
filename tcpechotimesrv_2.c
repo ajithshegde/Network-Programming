@@ -2,7 +2,7 @@
 #include	"unp.h"
 #include	<time.h>
 
-void* time_exe(void *arg){
+static void* time_exe(void *arg){
 
 	char                            buff[MAXLINE];
 
@@ -36,7 +36,7 @@ void* time_exe(void *arg){
 
 }
 
-void* echo_exe(void* arg){
+static void* echo_exe(void* arg){
 
 
 	char buff_e[MAXLINE];
@@ -115,7 +115,13 @@ main(int argc, char **argv)
 		maxfdp_e = listenfd_e+1;
 		Select(maxfdp_e, &rset_e, NULL, NULL, NULL);
 
+		 if(FD_ISSET(listenfd_e,&rset_e)){
+                        connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
+                        pthread_create(NULL, NULL,&echo_exe, NULL);
 
+                }
+
+			
 		FD_SET(listenfd,&rset_t);
 		maxfdp_t = listenfd+1;
 		Select(maxfdp_t, &rset_t, NULL, NULL, NULL);
@@ -125,11 +131,7 @@ main(int argc, char **argv)
 			pthread_create(NULL, NULL,&time_exe, (void *)connfd);
 
 		}
-		if(FD_ISSET(listenfd_e,&rset_e)){
-			connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
-			pthread_create(NULL, NULL,&echo_exe, NULL);
-
-		}
+		
 
 	}
 
