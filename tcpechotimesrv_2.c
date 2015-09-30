@@ -146,7 +146,8 @@ main(int argc, char **argv)
 
 		}
 		
-		FD_CLR(&rset);
+		FD_CLR(listenfd_e,&rset);
+		FD_CLR(listenfd,&rset);
 	}
 
 
