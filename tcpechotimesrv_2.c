@@ -52,10 +52,10 @@ static void* echo_exe(void* arg){
 	//	connfd_e = Accept(listenfd_e,(SA*) NULL, NULL);
 	for( ; ; ){	
 
-		if (n = Readline((int)arg,buff_e,MAXLINE) == 0){
+		if (n = readline((int)arg,buff_e,MAXLINE) == 0){
 			break;
 		}
-		Writen((int)arg,buff_e,MAXLINE);
+		writen((int)arg,buff_e,MAXLINE);
 
 	}	
 	Close((int)arg);
