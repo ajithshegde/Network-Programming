@@ -18,10 +18,10 @@ int main(int argc,char** argv){
 	
 	for( ; ; ){
 	while( Fgets(sndline,MAXLINE,stdin) != NULL ){
-	//	Writen(sockfd, sndline, strlen(sndline));
+		Writen(sockfd, sndline, strlen(sndline));
 		
-	//	if(Readline(sockfd, rcvline, MAXLINE) == 0)
-	//		err_quit("server terminated");
+		if(Readline(sockfd, rcvline, MAXLINE) == 0)
+			err_quit("server terminated");
 
 		Fputs(rcvline,stdout);
 }
