@@ -39,6 +39,6 @@ int main(int argc,char** argv){
 		printf("%s\n",in_str);
 	//write(pfd[1], in_str,strlen(in_str)+1);
 	}*/
-
+	sleep(5);
 	return 0;
 }
