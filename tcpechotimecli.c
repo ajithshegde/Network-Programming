@@ -1,7 +1,8 @@
 #include	"unp.h"
 #include <sys/types.h>
-//void child_proc(char);
-//void parent_proc();
+
+void sig_child(int);
+
 	int
 main(int argc, char **argv)
 {	
@@ -44,7 +45,9 @@ main(int argc, char **argv)
 
 	}
 
-	//	for( ; ; ){
+	Signal(SIGCHLD,sig_child);
+
+     for( ; ; ){
 	printf("Enter your choice \n");         
 	printf("'t' for time \n");      
 	printf("'e' for echo \n");      
@@ -99,18 +102,29 @@ main(int argc, char **argv)
 	}
 	else{
 		printf("Invalid choice\n");
-		//continue;
+		continue;
 	}
-	//		if(choice == 'q'){
-	//			break;
-	//		}
-	//		else{
-	//		    continue;
-	//		}
-	//	}
-	exit(0);
+			if(choice == 'q'){
+				break;
+			}
+			else{
+				sleep(1);
+				continue;
+			}
+		}
+	//exit(0);
 }
 
+void sig_child(int signo){
+
+pid_t pid;
+int stat;
+
+while( (pid = waitpid(-1,&stat,WNOHANG))> 0){
+	printf("Child terminated\n");
+}
+	return;
+}
 /*void child_proc(char ch){
   if(ch == 't'){
   printf("child chose time \n");

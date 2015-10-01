@@ -6,23 +6,26 @@ int main(int argc,char** argv){
 	char rcvline[MAXLINE],sndline[MAXLINE];
 	int pf;
 	char buf[100],last[100];
-	//	fd_set rset;
-	//	int maxfdp;
-
+	
 
 
 	strcpy(buf,"Echo input given");	
-	strcpy(last,"Child terminated");	
+	strcpy(last,"Echo Child terminated");	
+	
 	pf = atoi(argv[2]);
 	if(argc <3){
 		err_quit("usage:tcpcli <IPaddress>");
 	}
+	
 	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
 
 	bzero(&servaddr, sizeof(servaddr));
+	
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(14087);
+	
 	Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
+	
 	Connect(sockfd,(SA*) &servaddr, sizeof(servaddr));
 
 	/*	FD_ZERO(&rset);
@@ -49,19 +52,29 @@ int main(int argc,char** argv){
 	write(pf,buf,strlen(buf)+1);	
 	}		
 	}*/
+
+	
 	for( ; ; ){
+		 
+
 		while( Fgets(sndline,MAXLINE,stdin) != NULL ){
 			Writen(sockfd, sndline, strlen(sndline));
+		
 
+		
 			if(Readline(sockfd, rcvline, MAXLINE) == 0){
-				//write(pf,last,strlen(last)+1);
+			
 				err_quit("server terminated");
 			}
+		
+			
 			Fputs(rcvline,stdout);
 			write(pf,buf,strlen(buf)+1);
 			memset(rcvline,0,sizeof(rcvline));
 			memset(sndline,0,sizeof(sndline));
 		}
+			write(pf,last,strlen(last)+1);
+			break;
 
 	}
 
