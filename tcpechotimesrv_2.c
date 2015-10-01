@@ -35,6 +35,8 @@ static void* time_exe(void *arg){
 			break;
 		}
 
+//	for( ; ; ){
+	for( ; ; ){
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
 
@@ -51,6 +53,7 @@ static void* time_exe(void *arg){
 		FD_CLR((int)arg,&eset);
 	}
 	Close((int)arg);
+
 
 	//printf("Error in client side\n");
 
