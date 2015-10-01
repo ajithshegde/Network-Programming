@@ -34,20 +34,6 @@ CFLAGS = ${FLAGS} -I/home/courses/cse533/Stevens/unpv13e_solaris2.10/lib
 
 all: client server echo_cli time_cli daytimeaddress echo_server server_2
 
-server_2: tcpechotimesrv_2.o readline.o
-	${CC} ${FLAGS} -o server_2 tcpechotimesrv_2.o readline.o ${LIBS}
-tcpechotimesrv_2.o: tcpechotimesrv_2.c
-	${CC} ${CFLAGS} -c tcpechotimesrv_2.c
-
-echo_server: echo_server.o
-	${CC} ${FLAGS} -o echo_server echo_server.o ${LIBS}
-echo_server.o: echo_server.c
-	${CC} ${CFLAGS} -c echo_server.c 
-
-daytimeaddress: daytimeaddress.o
-	${CC} ${FLAGS} -o daytimeaddress daytimeaddress.o ${LIBS}
-daytimeaddress.o: daytimeaddress.c
-	${CC} ${CFLAGS} -c daytimeaddress.c		
 
 time_cli: time_cli.o
 	${CC} ${FLAGS} -o time_cli time_cli.o ${LIBS}
