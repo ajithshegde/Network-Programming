@@ -14,6 +14,7 @@ main(int argc, char **argv)
 	int pid,nread;
 	int pfd[2];
 	char buf[100];
+	char ip_adr[20];
 	char pf[100];
 
 	if (argc != 2)
@@ -44,7 +45,7 @@ main(int argc, char **argv)
 		}
 
 	}
-
+	sprintf(ip_adr,inet_ntop(ha->h_addrtype,ha->h_addr_list[0],str,sizeof(str)));
 	Signal(SIGCHLD,sig_child);
 
      for( ; ; ){
@@ -71,12 +72,12 @@ main(int argc, char **argv)
 					  sprintf(pf,"%d",pfd[1]);
 					  					  
 				          if(choice == 'e'){
-						  execlp("xterm", "xterm", "-e", "./echo_cli", "127.0.0.1",pf, (char *) 0);
+						  execlp("xterm", "xterm", "-e", "./echo_cli", ip_adr,pf, (char *) 0);
 						    perror("echo failed");	
 						  printf("In child..child process forked and echoed\n");  
 					  }
 					  else{
-						  execlp("xterm", "xterm", "-e", "./time_cli", "127.0.0.1",pf, (char *) 0);
+						  execlp("xterm", "xterm", "-e", "./time_cli", ip_adr,pf, (char *) 0);
 						  perror("time failed");
 						  printf("In child..child process forked and timed \n");	
 					  }				
